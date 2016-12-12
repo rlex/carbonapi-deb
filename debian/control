@@ -1,0 +1,16 @@
+Source: carbonapi
+Section: misc
+Maintainer: Lex Rivera <me@lex.io>
+Homepage: https://github.com/dgryski/carbonapi
+Priority: optional
+Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 9.0.0),
+    dh-golang,
+    golang-go,
+    quilt,
+    git
+
+Package: carbonapi
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: carbonapi for carbonzipper/go-carbon

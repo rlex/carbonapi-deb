@@ -1,0 +1,13 @@
+[Unit]
+Description=CarbonAPI
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+EnvironmentFile=-/etc/default/carbonapi
+ExecStart=/usr/bin/carbonapi -z=${CARBONAPI_ZIPPER} -p ${CARBONAPI_PORT}
+KillMode=control-group
+Restart=on-failure
+
+
+[Install]
+WantedBy=multi-user.target

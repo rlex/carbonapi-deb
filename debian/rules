@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+
+export DH_OPTIONS
+export DH_GOPKG := github.com/dgryski/carbonapi
+GOPATH := ${CURDIR}/_build:/usr/share/gocode
+BLDPATH := $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+%:
+	dh $@ --buildsystem=golang --with=golang,quilt
+
+override_dh_auto_build:
+	go get -v ${DH_GOPKG}
+	go build -v ${DH_GOPKG}
+
+override_dh_auto_install:
+	install -Dm0755 carbonapi debian/carbonapi/usr/bin/carbonapi
+	install -Dm0755 files/carbonapi.service debian/carbonapi/usr/lib/systemd/system/carbonapi.service
+	install -Dm0755 files/carbonapi.env debian/carbonapi/etc/default/carbonapi
+
+override_dh_auto_clean:
+	dh_clean
+
+override_dh_auto_test:
+	#go test -v ${DH_GOPKG}
+	:
